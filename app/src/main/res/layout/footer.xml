@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <Button
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/btn_footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_not_ekle"
+        android:layout_margin="24dp"
+        android:background="@drawable/btn_not_ekle_arkaplan"
+        android:textAllCaps="false"
+        android:textSize="@dimen/btn_text_size"
+        android:fontFamily="sans-serif-thin"
+        android:layout_below="@+id/ivLogo"
+        android:layout_gravity="center_horizontal"
+        android:paddingLeft="@dimen/btn_padding_sol_sag"
+        android:paddingRight="@dimen/btn_padding_sol_sag"
+        android:paddingBottom="@dimen/btn_padding_alt_ust"
+        android:paddingTop="@dimen/btn_padding_alt_ust"
+        android:textColor="@color/btn_text_renk_degistir">
+
+
+    </Button>

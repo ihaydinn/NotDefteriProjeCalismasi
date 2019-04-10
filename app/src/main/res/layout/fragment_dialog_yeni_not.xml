@@ -32,12 +32,11 @@
         android:padding="16dp"
         android:hint="Notunuzu Giriniz"/>
 
-    <DatePicker
+    <com.ismailhakkiaydin.notsepetiapp.TarihDatePicker
         android:id="@+id/dp_tarih"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/et_not"
-        android:visibility="gone"
         />
 
     <Button

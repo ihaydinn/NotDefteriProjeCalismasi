@@ -62,7 +62,7 @@ public class NotlarRecyclerView extends RecyclerView {
                 for (View view : elemanYoksaGosterilecekler){
                     view.setVisibility(View.VISIBLE);
                 }
-            }else{
+            }else if (getAdapter().getItemCount() > 1){
                 for (View view : elemanYoksaSaklanacaklar){
                     view.setVisibility(View.VISIBLE);
                 }

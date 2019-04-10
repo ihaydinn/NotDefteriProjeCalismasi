@@ -17,14 +17,25 @@ import android.widget.Toast;
 
 import com.ismailhakkiaydin.notsepetiapp.data.NotlarProvider;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.Calendar;
+
 public class FragmentDialogYeniNot extends DialogFragment {
 
     static final Uri CONTENT_URI = NotlarProvider.CONTENT_URI;
 
     private ImageButton mBtnKapat;
     private EditText mNotIcerik;
-    private DatePicker mNotTarih;
+    private TarihDatePicker mNotTarih;
     private Button mNotEkle;
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.dialogTemasi);
+    }
 
     @Nullable
     @Override
@@ -56,11 +67,25 @@ public class FragmentDialogYeniNot extends DialogFragment {
             @Override
             public void onClick(View view) {
 
+               /* Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.DAY_OF_MONTH, mNotTarih.getDayOfMonth());
+                calendar.set(Calendar.MONTH, mNotTarih.getMonth());
+                calendar.set(Calendar.YEAR, mNotTarih.getYear());
+
+                calendar.set(Calendar.HOUR, 0);
+                calendar.set(Calendar.MINUTE, 0);
+                calendar.set(Calendar.SECOND, 0);*/
+
                 ContentValues contentValues = new ContentValues();
                 contentValues.put("notIcerik", mNotIcerik.getText().toString());
+               // contentValues.put("notTarih", calendar.getTimeInMillis());
+                contentValues.put("notTarih", mNotTarih.getTime());
                 Uri uri = getActivity().getContentResolver().insert(CONTENT_URI, contentValues);
                 Toast.makeText(getContext(), "Eklendi : " +uri, Toast.LENGTH_LONG).show();
-                ((MainActivity)getActivity()).dataGuncelle();
+
+                EventBus.getDefault().post(new DataEvent.DataGuncelle(1));
+                dismiss();
+
             }
         });
 

@@ -30,12 +30,12 @@ public class NotlarProvider extends ContentProvider {
     }
 
     private final static String DATABASE_NAME = "notlar.db";
-    private final static int DATABASE_VERSION = 1;
+    private final static int DATABASE_VERSION = 2;
     private final static String NOTLAR_TABLE_NAME = "notlar";
     private final static String CREATE_NOTLAR_TABLE = " CREATE TABLE " + NOTLAR_TABLE_NAME
             + " (id INTEGER PRIMARY KEY AUTOINCREMENT, "
             + " notIcerik TEXT NOT NULL, "
-            + " notTarih TEXT, "
+            + " notTarih INTEGER, "
             + " tamamlandi INTEGER DEFAULT 0);";
 
     @Override
@@ -53,7 +53,7 @@ public class NotlarProvider extends ContentProvider {
 
         switch (matcher.match(uri)){
             case 1:
-                cursor = db.query(NOTLAR_TABLE_NAME, strings, s, strings1, s1, null, null);
+                cursor = db.query(NOTLAR_TABLE_NAME, strings, s, strings1, null, null, s1);
                 break;
         }
 
@@ -85,12 +85,29 @@ public class NotlarProvider extends ContentProvider {
 
     @Override
     public int delete(@NonNull Uri uri, @Nullable String s, @Nullable String[] strings) {
-        return 0;
+
+        int etkilenenSatirSayisi = 0;
+        switch (matcher.match(uri)){
+            case 1:
+                etkilenenSatirSayisi = db.delete(NOTLAR_TABLE_NAME, s, strings);
+                break;
+        }
+
+        return etkilenenSatirSayisi;
     }
 
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues contentValues, @Nullable String s, @Nullable String[] strings) {
-        return 0;
+
+        int etkilenenSatirSayisi = 0;
+        switch (matcher.match(uri)){
+            case 1:
+                etkilenenSatirSayisi = db.update(NOTLAR_TABLE_NAME, contentValues, s, strings);
+                break;
+        }
+
+        return etkilenenSatirSayisi;
+
     }
 
 
@@ -110,8 +127,8 @@ public class NotlarProvider extends ContentProvider {
         @Override
         public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
-            db.execSQL(" DROP TABLE IF EXISTS " + NOTLAR_TABLE_NAME);
-            onCreate(db);
+            sqLiteDatabase.execSQL(" DROP TABLE IF EXISTS " + NOTLAR_TABLE_NAME);
+            onCreate(sqLiteDatabase);
 
         }
     }
